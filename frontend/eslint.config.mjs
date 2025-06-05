@@ -19,17 +19,7 @@ const eslintConfig = [
     ],
     rules: {
       "prettier/prettier": ["error", {}, { usePrettierrc: true }],
-      "no-restricted-imports": [
-        "error",
-        {
-          patterns: [
-            {
-              group: ["@/features/*/*", "!@/features/*/index.{ts,tsx}"],
-              message: "Import from index.ts instead",
-            },
-          ],
-        },
-      ],
+      "no-restricted-imports": "error",
     },
   }),
 ];

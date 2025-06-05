@@ -180,3 +180,7 @@
 h1 {
   @apply text-2xl font-semibold font-sans;
 }
+
+h2 {
+  @apply text-xl font-semibold font-sans;
+}

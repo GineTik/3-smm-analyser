@@ -1,6 +1,7 @@
 "use client";
 
-import { HomeIcon, InfoIcon, MailIcon } from "lucide-react";
+import { ROUTES } from "@/shared/constants/routes";
+import { ChartBarIcon, HomeIcon, CableIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 export function useMenu() {
@@ -10,21 +11,21 @@ export function useMenu() {
     menu: [
       {
         label: "Головна",
-        href: "/",
-        icon: <MailIcon />,
-        isActive: pathname === "/",
+        href: ROUTES.HOME,
+        icon: <HomeIcon />,
+        isActive: pathname === ROUTES.HOME,
       },
       {
         label: "Аналітика",
-        href: "/analytics",
-        icon: <HomeIcon />,
-        isActive: pathname === "/analytics",
+        href: ROUTES.ANALYTICS,
+        icon: <ChartBarIcon />,
+        isActive: pathname === ROUTES.ANALYTICS,
       },
       {
         label: "З'єднання",
-        href: "/connections",
-        icon: <InfoIcon />,
-        isActive: pathname === "/connections",
+        href: ROUTES.CONNECTIONS,
+        icon: <CableIcon />,
+        isActive: pathname === ROUTES.CONNECTIONS,
       },
     ],
   };

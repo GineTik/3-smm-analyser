@@ -1,0 +1,120 @@
+datasource db {
+  provider = "postgresql" 
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma"
+}
+
+model User {
+  id              Int      @id @default(autoincrement())
+  email           String   @unique
+  passwordHash    String
+  registeredAt    DateTime @default(now())
+  isEmailVerified Boolean  @default(false)
+
+  confirmationCode ConfirmationCode? 
+  socialAccounts  SocialAccount[]
+}
+
+model ConfirmationCode {
+  code            String @id @default(uuid())
+  expiresAt       DateTime
+
+  user            User   @relation(fields: [userId], references: [id])
+  userId          Int @unique
+}
+
+model SocialNetwork {
+  id               Int      @id @default(autoincrement())
+  name             String   @unique 
+  profileUrlFormat String?
+
+  socialAccounts   SocialAccount[]
+}
+
+model SocialAccount {
+  id               Int      @id @default(autoincrement())
+  userId           Int
+  socialNetworkId  Int
+  accessToken      String
+  refreshToken     String?
+  socialAccountId  String 
+  connectedAt      DateTime @default(now())
+
+  user             User              @relation(fields: [userId], references: [id])
+  socialNetwork    SocialNetwork     @relation(fields: [socialNetworkId], references: [id])
+  generalAnalytics GeneralAnalyticsData[]
+
+  @@unique([userId, socialNetworkId])
+  @@index([socialAccountId])
+}
+
+model GeneralAnalyticsData {
+  id                        Int                   @id @default(autoincrement())
+  metricCollectedAt         DateTime              @default(now())
+  dataType                  String 
+  lastUpdatedAt             DateTime              @updatedAt
+  socialAccount             SocialAccount         @relation(fields: [socialAccountId], references: [id])
+  socialAccountId           Int
+
+  facebookAnalyticsPost   FacebookAnalyticsPost?
+  twitterAnalyticsTweet   TwitterAnalyticsTweet?
+  instagramAnalyticsPost  InstagramAnalyticsPost?
+}
+
+model FacebookAnalyticsPost {
+  id                  Int      @id @default(autoincrement())
+  postId              String   @unique
+  postContent         String?
+  postType            String? 
+  likeCount           Int      @default(0)
+  commentCount        Int      @default(0)
+  shareCount          Int      @default(0)
+  coverageOrganic     Int?     @default(0)
+  coveragePaid        Int?     @default(0)
+  postClickCount      Int?     @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt  
+
+  generalAnalytics GeneralAnalyticsData @relation(fields: [generalAnalyticsId], references: [id])
+  generalAnalyticsId  Int @unique
+}
+
+model TwitterAnalyticsTweet {
+  id                  Int      @id @default(autoincrement())
+  tweetId             String   @unique 
+  tweetContent        String?
+  retweetsCount       Int      @default(0)
+  quoteCount          Int      @default(0)
+  likeCount           Int      @default(0)
+  commentCount        Int      @default(0)
+  viewCount           Int?     @default(0)
+  hashtags            String[] 
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  generalAnalytics GeneralAnalyticsData @relation(fields: [generalAnalyticsId], references: [id])
+  generalAnalyticsId  Int @unique
+}
+
+model InstagramAnalyticsPost {
+  id                  Int      @id @default(autoincrement())
+  postId              String   @unique
+  postContent         String?
+  postType            String? 
+  likeCount           Int      @default(0)
+  commentCount        Int      @default(0)
+  saveCount           Int?     @default(0)
+  reach               Int?     @default(0)
+  impressions         Int?     @default(0)
+  engagementRate      Float?  
+  videoViews          Int?     @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  generalAnalytics GeneralAnalyticsData @relation(fields: [generalAnalyticsId], references: [id])
+  generalAnalyticsId  Int @unique
+}

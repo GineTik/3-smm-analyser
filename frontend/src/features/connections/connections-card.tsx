@@ -2,7 +2,7 @@
 
 import { Button } from "@/shared/components/ui-kit/button";
 import { cn } from "@/shared/lib/utils";
-import { ArrowRightIcon, ChevronDownIcon, SendIcon } from "lucide-react";
+import { ArrowRightIcon, ChevronDownIcon, SendIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 
 type SocialNetwork = {
@@ -62,9 +62,15 @@ export function ConnectionsCard({ socialNetwork }: ConnectionsCardProps) {
               className="first:border-t py-2 px-4 flex items-center cursor-pointer hover:bg-muted transition-colors"
             >
               {account.account}
-              <div className="ml-auto flex items-center gap-2 text-sm">
-                Перейти
-                <ArrowRightIcon className="w-4 h-4" />
+              <div className="flex gap-2 ml-auto">
+                <Button variant="outline" size="sm">
+                  <XIcon className="w-4 h-4" />
+                  Відключити
+                </Button>
+                <Button variant="outline" size="sm">
+                  Профіль
+                  <ArrowRightIcon className="w-4 h-4" />
+                </Button>
               </div>
             </div>
           ))}

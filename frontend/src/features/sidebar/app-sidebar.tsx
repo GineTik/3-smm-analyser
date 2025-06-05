@@ -1,21 +1,24 @@
 "use client";
 
+import { useAuth } from "@/shared/auth/use-auth";
 import {
   Sidebar,
-  SidebarHeader,
-  SidebarFooter,
   SidebarContent,
+  SidebarFooter,
+  SidebarGroupContent,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarGroupContent,
   SidebarMenuItem,
 } from "@/shared/components";
-import { NavUser } from "./nav-user";
 import { useMenu } from "./use-menu";
+import { NavUser } from "./nav-user";
+import { NavAuth } from "./nav-auth";
 import Link from "next/link";
 
 export function AppSidebar() {
   const { menu } = useMenu();
+  const { isAuthenticated } = useAuth();
 
   return (
     <Sidebar className="p-2 bg-sidebar">
@@ -39,7 +42,7 @@ export function AppSidebar() {
         </SidebarGroupContent>
       </SidebarContent>
       <SidebarFooter>
-        <NavUser />
+        {isAuthenticated ? <NavUser /> : <NavAuth />}
       </SidebarFooter>
     </Sidebar>
   );
