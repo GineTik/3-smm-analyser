@@ -2,6 +2,11 @@
   "dependencies": {
     "@nestjs/config": "^4.0.2",
     "@nestjs/jwt": "^11.0.0",
-    "nest": "^0.1.6"
+    "js-cookie": "^3.0.5",
+    "nest": "^0.1.6",
+    "twitter-api-v2": "^1.23.2"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.6"
   }
 }

@@ -3,6 +3,7 @@ import {
   Button,
   Head,
   Preview,
+  Section,
   Tailwind,
   Text,
 } from "@react-email/components";
@@ -11,23 +12,31 @@ import * as React from "react";
 
 type ConfirmEmailProps = {
   confirmLink: string;
+  title: string;
+  description: string;
 };
 
-export function ConfirmEmail({ confirmLink }: ConfirmEmailProps) {
+export function ConfirmEmail({
+  confirmLink,
+  title,
+  description,
+}: ConfirmEmailProps) {
   return (
     <Html>
       <Head />
-      <Preview>Підтвердження електронної пошти</Preview>
+      <Preview>{title}</Preview>
       <Tailwind>
-        <Body>
-          <Text>Привіт</Text>
-          <Text>Дякуємо за реєстрацію на нашій платформі.</Text>
-          <Button
-            href={confirmLink}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md"
-          >
-            Підтвердити
-          </Button>
+        <Body className="bg-[#262624] text-[#c3c0b6] p-4">
+          <Section className="p-4 border border-[#3e3e38] rounded-xl bg-transparent max-w-[300px] mx-auto w-full border-box">
+            <Text className="text-2xl font-bold">{title}</Text>
+            <Text className="text-white/50">{description}</Text>
+            <Button
+              href={confirmLink}
+              className="bg-[#d97757] text-[#ffffff] px-4 py-2 rounded-xl font-bold"
+            >
+              Підтвердити
+            </Button>
+          </Section>
         </Body>
       </Tailwind>
     </Html>

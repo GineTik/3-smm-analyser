@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/shared/auth/use-auth";
 import {
   Sidebar,
   SidebarContent,
@@ -15,6 +14,7 @@ import { useMenu } from "./use-menu";
 import { NavUser } from "./nav-user";
 import { NavAuth } from "./nav-auth";
 import Link from "next/link";
+import { useAuth } from "@/shared/hooks/use-auth";
 
 export function AppSidebar() {
   const { menu } = useMenu();

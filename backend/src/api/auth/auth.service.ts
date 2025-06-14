@@ -16,7 +16,7 @@ const SALT_ROUNDS = 10;
 
 @Injectable()
 export class AuthService {
-  private confirmEmailUrl: string | undefined;
+  private verifyEmailUrl: string | undefined;
   private resetPasswordUrl: string | undefined;
 
   constructor(
@@ -25,8 +25,10 @@ export class AuthService {
     private readonly mailService: MailService,
     private readonly configService: ConfigService,
   ) {
-    this.confirmEmailUrl = this.configService.get("FRONTEND_CONFIRM_EMAIL_URL");
-    this.resetPasswordUrl = this.configService.get(
+    this.verifyEmailUrl = this.configService.getOrThrow(
+      "MAIL_VALIDATE_EMAIL_ENDPOINT",
+    );
+    this.resetPasswordUrl = this.configService.getOrThrow(
       "FRONTEND_RESET_PASSWORD_URL",
     );
   }
@@ -43,16 +45,17 @@ export class AuthService {
     }
 
     const tokens = await this.jwtService.generateTokens({
-      userId: user.id,
+      id: user.id,
+      email: user.email,
+      isEmailVerified: user.isEmailVerified,
     });
-
     if (!user.isEmailVerified) {
       const confirmationCode =
         await this.authRepository.generateConfirmationCode(user.id);
 
       await this.mailService.sendConfirmationLink(
         user.email,
-        `${this.confirmEmailUrl}?code=${confirmationCode.code}`,
+        `${this.verifyEmailUrl}?code=${confirmationCode.code}`,
       );
     }
 
@@ -80,7 +83,9 @@ export class AuthService {
     });
 
     const tokens = await this.jwtService.generateTokens({
-      userId: newUser.id,
+      id: newUser.id,
+      email: newUser.email,
+      isEmailVerified: newUser.isEmailVerified,
     });
 
     const confirmationCode = await this.authRepository.generateConfirmationCode(
@@ -89,7 +94,7 @@ export class AuthService {
 
     await this.mailService.sendConfirmationLink(
       newUser.email,
-      `${this.confirmEmailUrl}?code=${confirmationCode.code}`,
+      `${this.verifyEmailUrl}?code=${confirmationCode.code}`,
     );
 
     return {
@@ -142,5 +147,13 @@ export class AuthService {
     }
 
     await this.authRepository.verifyEmail(confirmationCode.userId);
+  }
+
+  async refresh(id: number, email: string, isEmailVerified: boolean) {
+    return await this.jwtService.generateTokens({
+      id,
+      email,
+      isEmailVerified,
+    });
   }
 }

@@ -1,6 +1,15 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 export class TokensDto {
+  @ApiProperty()
   accessToken: string;
-  accessTokenExpiresIn: number;
+
+  @ApiProperty()
   refreshToken: string;
-  refreshTokenExpiresIn: number;
+
+  @ApiProperty()
+  accessTokenExpiresIn: Date;
+
+  @ApiProperty()
+  refreshTokenExpiresIn: Date;
 }

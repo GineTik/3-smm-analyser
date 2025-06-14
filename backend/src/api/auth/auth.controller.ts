@@ -1,25 +1,64 @@
-import { Body, Controller, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query, Res } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthDto } from "./dto/auth.dto";
 import { ResetPasswordDto } from "./dto/reset-password.dto";
+import { ApiBody, ApiQuery, ApiResponse } from "@nestjs/swagger";
+import { SuccessAuthDto } from "./dto/success-auth.dto";
+import { TokensDto } from "@/shared/auth/dto/tokens.dto";
+import { CurrentUser } from "@/shared/auth/user.decorator";
+import { Response } from "express";
+import { ConfigService } from "@nestjs/config";
+import { Auth } from "@/shared/auth/auth.decorator";
+import { User } from "@/shared/prisma/generated/prisma";
 
 @Controller("auth")
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @Post("login")
-  async login(@Body() dto: AuthDto) {
-    return this.authService.login(dto);
+  @ApiBody({
+    type: AuthDto,
+  })
+  @ApiResponse({
+    status: 201,
+    type: SuccessAuthDto,
+  })
+  async login(@Body() dto: AuthDto, @Res({ passthrough: true }) res: Response) {
+    const result = await this.authService.login(dto);
+
+    res.cookie("refreshToken", result.tokens.refreshToken, {
+      httpOnly: true,
+      secure: this.configService.get("NODE_ENV") === "production",
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "lax",
+      path: "/",
+    });
+
+    return result;
   }
 
   @Post("register")
+  @ApiBody({
+    type: AuthDto,
+  })
+  @ApiResponse({
+    status: 201,
+    type: SuccessAuthDto,
+  })
   async register(@Body() dto: AuthDto) {
     return this.authService.register(dto);
   }
 
   @Post("forgot-password")
+  @ApiQuery({
+    name: "email",
+    type: String,
+  })
   async forgotPassword(@Query("email") email: string) {
-    return this.authService.sendForgotPasswordMail(email);
+    await this.authService.sendForgotPasswordMail(email);
   }
 
   @Post("reset-password")
@@ -27,8 +66,29 @@ export class AuthController {
     return this.authService.resetPassword(dto);
   }
 
-  @Post("verify-email")
-  async verifyEmail(@Query("code") code: string) {
-    return this.authService.verifyEmail(code);
+  @Get("verify-email")
+  @ApiQuery({
+    name: "code",
+    type: String,
+  })
+  async verifyEmail(@Query("code") code: string, @Res() res: Response) {
+    await this.authService.verifyEmail(code);
+    res
+      .status(302)
+      .redirect(
+        this.configService.getOrThrow(
+          "FRONTEND_EMAIL_VERIFICATION_SUCCESS_URL",
+        ),
+      );
+  }
+
+  @Post("refresh")
+  @Auth()
+  @ApiResponse({
+    status: 201,
+    type: TokensDto,
+  })
+  async refresh(@CurrentUser() user: User) {
+    return this.authService.refresh(user.id, user.email, user.isEmailVerified);
   }
 }

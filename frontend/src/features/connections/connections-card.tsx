@@ -4,6 +4,8 @@ import { Button } from "@/shared/components/ui-kit/button";
 import { cn } from "@/shared/lib/utils";
 import { ArrowRightIcon, ChevronDownIcon, SendIcon, XIcon } from "lucide-react";
 import { useState } from "react";
+import { useConnectTwitter } from "./use-connect-twitter";
+import { ApiSchemas } from "@/shared/api/schema";
 
 type SocialNetwork = {
   title: string;
@@ -13,10 +15,16 @@ type SocialNetwork = {
 
 type ConnectionsCardProps = {
   socialNetwork: SocialNetwork;
+  accounts?: ApiSchemas["AccountDto"][];
 };
 
-export function ConnectionsCard({ socialNetwork }: ConnectionsCardProps) {
+export function ConnectionsCard({
+  socialNetwork,
+  accounts,
+}: ConnectionsCardProps) {
   const [accountsIsOpened, setAccountsIsOpened] = useState(false);
+  const { connectTwitter } = useConnectTwitter();
+
   return (
     <div className="items-center gap-2 border border-border rounded-2xl overflow-hidden">
       <div className="flex items-center gap-2 w-full p-4">
@@ -25,18 +33,20 @@ export function ConnectionsCard({ socialNetwork }: ConnectionsCardProps) {
         </div>
         <h2>{socialNetwork.title}</h2>
         <div className="flex items-center gap-2 ml-auto">
-          <Button variant="secondary">
+          <Button variant="secondary" onClick={connectTwitter}>
             Підключити
             <SendIcon className="w-4 h-4" />
           </Button>
-          <Button
-            variant="outline"
-            className="ml-auto"
-            onClick={() => setAccountsIsOpened(!accountsIsOpened)}
-          >
-            <ChevronDownIcon className="w-4 h-4" />
-            {accountsIsOpened ? "Сховати" : "Усі акаунти"}
-          </Button>
+          {accounts && accounts.length !== 0 && (
+            <Button
+              variant="outline"
+              className="ml-auto"
+              onClick={() => setAccountsIsOpened(!accountsIsOpened)}
+            >
+              <ChevronDownIcon className="w-4 h-4" />
+              {accountsIsOpened ? "Сховати" : "Усі акаунти"}
+            </Button>
+          )}
         </div>
       </div>{" "}
       <div
@@ -46,22 +56,12 @@ export function ConnectionsCard({ socialNetwork }: ConnectionsCardProps) {
         )}
       >
         <div className="divide-y divide-border">
-          {[
-            {
-              account: "@account1",
-            },
-            {
-              account: "@account2",
-            },
-            {
-              account: "@account3",
-            },
-          ].map((account) => (
+          {accounts?.map((account) => (
             <div
-              key={account.account}
+              key={account.id}
               className="first:border-t py-2 px-4 flex items-center cursor-pointer hover:bg-muted transition-colors"
             >
-              {account.account}
+              @{account.username}
               <div className="flex gap-2 ml-auto">
                 <Button variant="outline" size="sm">
                   <XIcon className="w-4 h-4" />

@@ -1,3 +1,5 @@
 export class PayloadDto {
-  userId: number;
+  id: number;
+  email: string;
+  isEmailVerified: boolean;
 }

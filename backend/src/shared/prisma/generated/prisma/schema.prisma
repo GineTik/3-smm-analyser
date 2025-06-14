@@ -28,9 +28,8 @@ model ConfirmationCode {
 }
 
 model SocialNetwork {
-  id               Int     @id @default(autoincrement())
-  name             String  @unique
-  profileUrlFormat String?
+  id   Int    @id @default(autoincrement())
+  name String @unique
 
   socialAccounts SocialAccount[]
 }
@@ -39,9 +38,11 @@ model SocialAccount {
   id              Int      @id @default(autoincrement())
   userId          Int
   socialNetworkId Int
+  profileId       String
+  profileUsername String?
+  profileImageUrl String?
   accessToken     String
   refreshToken    String?
-  socialAccountId String
   connectedAt     DateTime @default(now())
 
   user             User                   @relation(fields: [userId], references: [id])
@@ -49,7 +50,6 @@ model SocialAccount {
   generalAnalytics GeneralAnalyticsData[]
 
   @@unique([userId, socialNetworkId])
-  @@index([socialAccountId])
 }
 
 model GeneralAnalyticsData {

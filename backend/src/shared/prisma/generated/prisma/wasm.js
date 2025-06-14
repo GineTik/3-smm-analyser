@@ -136,17 +136,18 @@ exports.Prisma.ConfirmationCodeScalarFieldEnum = {
 
 exports.Prisma.SocialNetworkScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  profileUrlFormat: 'profileUrlFormat'
+  name: 'name'
 };
 
 exports.Prisma.SocialAccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   socialNetworkId: 'socialNetworkId',
+  profileId: 'profileId',
+  profileUsername: 'profileUsername',
+  profileImageUrl: 'profileImageUrl',
   accessToken: 'accessToken',
   refreshToken: 'refreshToken',
-  socialAccountId: 'socialAccountId',
   connectedAt: 'connectedAt'
 };
 

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -5,32 +7,36 @@ import {
   CardHeader,
 } from "@/shared/components/ui-kit/card";
 import { Button } from "@/shared/components/ui-kit/button";
-import { Input } from "@/shared/components/ui-kit/input";
-import { Label } from "@/shared/components/ui-kit/label";
+import { FormInput } from "@/shared/components/ui-kit/input";
+import { Form } from "@/shared/components/ui-kit/form";
+import { useRegister } from "./hooks/use-register";
 
 export function RegistrationCard() {
+  const { form, register, isPending } = useRegister();
+
   return (
     <Card>
       <CardHeader>
         <h1>Реєстрація</h1>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <Label>Пошта</Label>
-          <Input type="text" placeholder="Пошта" />
-        </div>
-        <div className="space-y-2">
-          <Label>Пароль</Label>
-          <Input type="text" placeholder="Пароль" />
-        </div>
-        <div className="space-y-2">
-          <Label>Повторіть пароль</Label>
-          <Input type="text" placeholder="Повторіть пароль" />
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button className="w-full">Реєстрація</Button>
-      </CardFooter>
+      <Form {...form}>
+        <form onSubmit={register}>
+          <CardContent className="space-y-4">
+            <FormInput control={form.control} name="email" label="Пошта" />
+            <FormInput control={form.control} name="password" label="Пароль" />
+            <FormInput
+              control={form.control}
+              name="confirmPassword"
+              label="Повторіть пароль"
+            />
+          </CardContent>
+          <CardFooter className="mt-4">
+            <Button className="w-full" type="submit" disabled={isPending}>
+              {isPending ? "Зареєструватися..." : "Зареєструватися"}
+            </Button>
+          </CardFooter>
+        </form>
+      </Form>
     </Card>
   );
 }

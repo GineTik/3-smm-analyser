@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Tabs,
   TabsContent,
@@ -5,25 +7,56 @@ import {
   TabsTrigger,
 } from "@/shared/components/ui-kit/tabs";
 import { AnalyticsDashboard } from "./analytics-dashboard";
+import { useConnections } from "@/features/connections/use-connections";
+import { Button } from "@/shared/components/ui-kit/button";
+import Link from "next/link";
+import { ROUTES } from "@/shared/constants/routes";
 
 export function AnalyticsTabs() {
+  const connections = useConnections();
+
+  if (connections.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (connections.error) {
+    return <div>Error: {connections.error.message}</div>;
+  }
+
+  if (connections.data?.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full">
+        <p className="text-sm text-muted-foreground font-semibold">
+          Щоб побачити свої аналітичні дані, необхідно підключити акаунт на
+          сторінці з&apos;єднань.
+        </p>
+        <Button asChild>
+          <Link href={ROUTES.CONNECTIONS}>Підключити акаунт</Link>
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <Tabs defaultValue="account1">
-        <TabsList>
-          <TabsTrigger value="account1">@account1</TabsTrigger>
-          <TabsTrigger value="account2">@account2</TabsTrigger>
-          <TabsTrigger value="account3">@account3</TabsTrigger>
-        </TabsList>
-        <TabsContent value="account1">
-          <AnalyticsDashboard account="@account1" />
-        </TabsContent>
-        <TabsContent value="account2">
-          <AnalyticsDashboard account="@account2" />
-        </TabsContent>
-        <TabsContent value="account3">
-          <AnalyticsDashboard account="@account3" />
-        </TabsContent>
+      <Tabs defaultValue={connections.data?.[0].id.toString()}>
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-muted-foreground font-semibold">
+            Ваші акаунти:
+          </span>
+          <TabsList>
+            {connections.data?.map((connection) => (
+              <TabsTrigger key={connection.id} value={connection.id.toString()}>
+                @{connection.username}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+        {connections.data?.map((connection) => (
+          <TabsContent key={connection.id} value={connection.id.toString()}>
+            <AnalyticsDashboard account={connection.username} />
+          </TabsContent>
+        ))}
       </Tabs>
     </div>
   );

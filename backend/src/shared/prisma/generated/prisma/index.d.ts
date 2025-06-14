@@ -3814,19 +3814,16 @@ export namespace Prisma {
   export type SocialNetworkMinAggregateOutputType = {
     id: number | null
     name: string | null
-    profileUrlFormat: string | null
   }
 
   export type SocialNetworkMaxAggregateOutputType = {
     id: number | null
     name: string | null
-    profileUrlFormat: string | null
   }
 
   export type SocialNetworkCountAggregateOutputType = {
     id: number
     name: number
-    profileUrlFormat: number
     _all: number
   }
 
@@ -3842,19 +3839,16 @@ export namespace Prisma {
   export type SocialNetworkMinAggregateInputType = {
     id?: true
     name?: true
-    profileUrlFormat?: true
   }
 
   export type SocialNetworkMaxAggregateInputType = {
     id?: true
     name?: true
-    profileUrlFormat?: true
   }
 
   export type SocialNetworkCountAggregateInputType = {
     id?: true
     name?: true
-    profileUrlFormat?: true
     _all?: true
   }
 
@@ -3947,7 +3941,6 @@ export namespace Prisma {
   export type SocialNetworkGroupByOutputType = {
     id: number
     name: string
-    profileUrlFormat: string | null
     _count: SocialNetworkCountAggregateOutputType | null
     _avg: SocialNetworkAvgAggregateOutputType | null
     _sum: SocialNetworkSumAggregateOutputType | null
@@ -3972,7 +3965,6 @@ export namespace Prisma {
   export type SocialNetworkSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    profileUrlFormat?: boolean
     socialAccounts?: boolean | SocialNetwork$socialAccountsArgs<ExtArgs>
     _count?: boolean | SocialNetworkCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["socialNetwork"]>
@@ -3980,22 +3972,19 @@ export namespace Prisma {
   export type SocialNetworkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    profileUrlFormat?: boolean
   }, ExtArgs["result"]["socialNetwork"]>
 
   export type SocialNetworkSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    profileUrlFormat?: boolean
   }, ExtArgs["result"]["socialNetwork"]>
 
   export type SocialNetworkSelectScalar = {
     id?: boolean
     name?: boolean
-    profileUrlFormat?: boolean
   }
 
-  export type SocialNetworkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "profileUrlFormat", ExtArgs["result"]["socialNetwork"]>
+  export type SocialNetworkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["socialNetwork"]>
   export type SocialNetworkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     socialAccounts?: boolean | SocialNetwork$socialAccountsArgs<ExtArgs>
     _count?: boolean | SocialNetworkCountOutputTypeDefaultArgs<ExtArgs>
@@ -4011,7 +4000,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
-      profileUrlFormat: string | null
     }, ExtArgs["result"]["socialNetwork"]>
     composites: {}
   }
@@ -4438,7 +4426,6 @@ export namespace Prisma {
   interface SocialNetworkFieldRefs {
     readonly id: FieldRef<"SocialNetwork", 'Int'>
     readonly name: FieldRef<"SocialNetwork", 'String'>
-    readonly profileUrlFormat: FieldRef<"SocialNetwork", 'String'>
   }
     
 
@@ -4897,9 +4884,11 @@ export namespace Prisma {
     id: number | null
     userId: number | null
     socialNetworkId: number | null
+    profileId: string | null
+    profileUsername: string | null
+    profileImageUrl: string | null
     accessToken: string | null
     refreshToken: string | null
-    socialAccountId: string | null
     connectedAt: Date | null
   }
 
@@ -4907,9 +4896,11 @@ export namespace Prisma {
     id: number | null
     userId: number | null
     socialNetworkId: number | null
+    profileId: string | null
+    profileUsername: string | null
+    profileImageUrl: string | null
     accessToken: string | null
     refreshToken: string | null
-    socialAccountId: string | null
     connectedAt: Date | null
   }
 
@@ -4917,9 +4908,11 @@ export namespace Prisma {
     id: number
     userId: number
     socialNetworkId: number
+    profileId: number
+    profileUsername: number
+    profileImageUrl: number
     accessToken: number
     refreshToken: number
-    socialAccountId: number
     connectedAt: number
     _all: number
   }
@@ -4941,9 +4934,11 @@ export namespace Prisma {
     id?: true
     userId?: true
     socialNetworkId?: true
+    profileId?: true
+    profileUsername?: true
+    profileImageUrl?: true
     accessToken?: true
     refreshToken?: true
-    socialAccountId?: true
     connectedAt?: true
   }
 
@@ -4951,9 +4946,11 @@ export namespace Prisma {
     id?: true
     userId?: true
     socialNetworkId?: true
+    profileId?: true
+    profileUsername?: true
+    profileImageUrl?: true
     accessToken?: true
     refreshToken?: true
-    socialAccountId?: true
     connectedAt?: true
   }
 
@@ -4961,9 +4958,11 @@ export namespace Prisma {
     id?: true
     userId?: true
     socialNetworkId?: true
+    profileId?: true
+    profileUsername?: true
+    profileImageUrl?: true
     accessToken?: true
     refreshToken?: true
-    socialAccountId?: true
     connectedAt?: true
     _all?: true
   }
@@ -5058,9 +5057,11 @@ export namespace Prisma {
     id: number
     userId: number
     socialNetworkId: number
+    profileId: string
+    profileUsername: string | null
+    profileImageUrl: string | null
     accessToken: string
     refreshToken: string | null
-    socialAccountId: string
     connectedAt: Date
     _count: SocialAccountCountAggregateOutputType | null
     _avg: SocialAccountAvgAggregateOutputType | null
@@ -5087,9 +5088,11 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     socialNetworkId?: boolean
+    profileId?: boolean
+    profileUsername?: boolean
+    profileImageUrl?: boolean
     accessToken?: boolean
     refreshToken?: boolean
-    socialAccountId?: boolean
     connectedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     socialNetwork?: boolean | SocialNetworkDefaultArgs<ExtArgs>
@@ -5101,9 +5104,11 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     socialNetworkId?: boolean
+    profileId?: boolean
+    profileUsername?: boolean
+    profileImageUrl?: boolean
     accessToken?: boolean
     refreshToken?: boolean
-    socialAccountId?: boolean
     connectedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     socialNetwork?: boolean | SocialNetworkDefaultArgs<ExtArgs>
@@ -5113,9 +5118,11 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     socialNetworkId?: boolean
+    profileId?: boolean
+    profileUsername?: boolean
+    profileImageUrl?: boolean
     accessToken?: boolean
     refreshToken?: boolean
-    socialAccountId?: boolean
     connectedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     socialNetwork?: boolean | SocialNetworkDefaultArgs<ExtArgs>
@@ -5125,13 +5132,15 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     socialNetworkId?: boolean
+    profileId?: boolean
+    profileUsername?: boolean
+    profileImageUrl?: boolean
     accessToken?: boolean
     refreshToken?: boolean
-    socialAccountId?: boolean
     connectedAt?: boolean
   }
 
-  export type SocialAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "socialNetworkId" | "accessToken" | "refreshToken" | "socialAccountId" | "connectedAt", ExtArgs["result"]["socialAccount"]>
+  export type SocialAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "socialNetworkId" | "profileId" | "profileUsername" | "profileImageUrl" | "accessToken" | "refreshToken" | "connectedAt", ExtArgs["result"]["socialAccount"]>
   export type SocialAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     socialNetwork?: boolean | SocialNetworkDefaultArgs<ExtArgs>
@@ -5158,9 +5167,11 @@ export namespace Prisma {
       id: number
       userId: number
       socialNetworkId: number
+      profileId: string
+      profileUsername: string | null
+      profileImageUrl: string | null
       accessToken: string
       refreshToken: string | null
-      socialAccountId: string
       connectedAt: Date
     }, ExtArgs["result"]["socialAccount"]>
     composites: {}
@@ -5591,9 +5602,11 @@ export namespace Prisma {
     readonly id: FieldRef<"SocialAccount", 'Int'>
     readonly userId: FieldRef<"SocialAccount", 'Int'>
     readonly socialNetworkId: FieldRef<"SocialAccount", 'Int'>
+    readonly profileId: FieldRef<"SocialAccount", 'String'>
+    readonly profileUsername: FieldRef<"SocialAccount", 'String'>
+    readonly profileImageUrl: FieldRef<"SocialAccount", 'String'>
     readonly accessToken: FieldRef<"SocialAccount", 'String'>
     readonly refreshToken: FieldRef<"SocialAccount", 'String'>
-    readonly socialAccountId: FieldRef<"SocialAccount", 'String'>
     readonly connectedAt: FieldRef<"SocialAccount", 'DateTime'>
   }
     
@@ -10902,8 +10915,7 @@ export namespace Prisma {
 
   export const SocialNetworkScalarFieldEnum: {
     id: 'id',
-    name: 'name',
-    profileUrlFormat: 'profileUrlFormat'
+    name: 'name'
   };
 
   export type SocialNetworkScalarFieldEnum = (typeof SocialNetworkScalarFieldEnum)[keyof typeof SocialNetworkScalarFieldEnum]
@@ -10913,9 +10925,11 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     socialNetworkId: 'socialNetworkId',
+    profileId: 'profileId',
+    profileUsername: 'profileUsername',
+    profileImageUrl: 'profileImageUrl',
     accessToken: 'accessToken',
     refreshToken: 'refreshToken',
-    socialAccountId: 'socialAccountId',
     connectedAt: 'connectedAt'
   };
 
@@ -11198,14 +11212,12 @@ export namespace Prisma {
     NOT?: SocialNetworkWhereInput | SocialNetworkWhereInput[]
     id?: IntFilter<"SocialNetwork"> | number
     name?: StringFilter<"SocialNetwork"> | string
-    profileUrlFormat?: StringNullableFilter<"SocialNetwork"> | string | null
     socialAccounts?: SocialAccountListRelationFilter
   }
 
   export type SocialNetworkOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    profileUrlFormat?: SortOrderInput | SortOrder
     socialAccounts?: SocialAccountOrderByRelationAggregateInput
   }
 
@@ -11215,14 +11227,12 @@ export namespace Prisma {
     AND?: SocialNetworkWhereInput | SocialNetworkWhereInput[]
     OR?: SocialNetworkWhereInput[]
     NOT?: SocialNetworkWhereInput | SocialNetworkWhereInput[]
-    profileUrlFormat?: StringNullableFilter<"SocialNetwork"> | string | null
     socialAccounts?: SocialAccountListRelationFilter
   }, "id" | "name">
 
   export type SocialNetworkOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    profileUrlFormat?: SortOrderInput | SortOrder
     _count?: SocialNetworkCountOrderByAggregateInput
     _avg?: SocialNetworkAvgOrderByAggregateInput
     _max?: SocialNetworkMaxOrderByAggregateInput
@@ -11236,7 +11246,6 @@ export namespace Prisma {
     NOT?: SocialNetworkScalarWhereWithAggregatesInput | SocialNetworkScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"SocialNetwork"> | number
     name?: StringWithAggregatesFilter<"SocialNetwork"> | string
-    profileUrlFormat?: StringNullableWithAggregatesFilter<"SocialNetwork"> | string | null
   }
 
   export type SocialAccountWhereInput = {
@@ -11246,9 +11255,11 @@ export namespace Prisma {
     id?: IntFilter<"SocialAccount"> | number
     userId?: IntFilter<"SocialAccount"> | number
     socialNetworkId?: IntFilter<"SocialAccount"> | number
+    profileId?: StringFilter<"SocialAccount"> | string
+    profileUsername?: StringNullableFilter<"SocialAccount"> | string | null
+    profileImageUrl?: StringNullableFilter<"SocialAccount"> | string | null
     accessToken?: StringFilter<"SocialAccount"> | string
     refreshToken?: StringNullableFilter<"SocialAccount"> | string | null
-    socialAccountId?: StringFilter<"SocialAccount"> | string
     connectedAt?: DateTimeFilter<"SocialAccount"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     socialNetwork?: XOR<SocialNetworkScalarRelationFilter, SocialNetworkWhereInput>
@@ -11259,9 +11270,11 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     socialNetworkId?: SortOrder
+    profileId?: SortOrder
+    profileUsername?: SortOrderInput | SortOrder
+    profileImageUrl?: SortOrderInput | SortOrder
     accessToken?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
-    socialAccountId?: SortOrder
     connectedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     socialNetwork?: SocialNetworkOrderByWithRelationInput
@@ -11276,9 +11289,11 @@ export namespace Prisma {
     NOT?: SocialAccountWhereInput | SocialAccountWhereInput[]
     userId?: IntFilter<"SocialAccount"> | number
     socialNetworkId?: IntFilter<"SocialAccount"> | number
+    profileId?: StringFilter<"SocialAccount"> | string
+    profileUsername?: StringNullableFilter<"SocialAccount"> | string | null
+    profileImageUrl?: StringNullableFilter<"SocialAccount"> | string | null
     accessToken?: StringFilter<"SocialAccount"> | string
     refreshToken?: StringNullableFilter<"SocialAccount"> | string | null
-    socialAccountId?: StringFilter<"SocialAccount"> | string
     connectedAt?: DateTimeFilter<"SocialAccount"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     socialNetwork?: XOR<SocialNetworkScalarRelationFilter, SocialNetworkWhereInput>
@@ -11289,9 +11304,11 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     socialNetworkId?: SortOrder
+    profileId?: SortOrder
+    profileUsername?: SortOrderInput | SortOrder
+    profileImageUrl?: SortOrderInput | SortOrder
     accessToken?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
-    socialAccountId?: SortOrder
     connectedAt?: SortOrder
     _count?: SocialAccountCountOrderByAggregateInput
     _avg?: SocialAccountAvgOrderByAggregateInput
@@ -11307,9 +11324,11 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"SocialAccount"> | number
     userId?: IntWithAggregatesFilter<"SocialAccount"> | number
     socialNetworkId?: IntWithAggregatesFilter<"SocialAccount"> | number
+    profileId?: StringWithAggregatesFilter<"SocialAccount"> | string
+    profileUsername?: StringNullableWithAggregatesFilter<"SocialAccount"> | string | null
+    profileImageUrl?: StringNullableWithAggregatesFilter<"SocialAccount"> | string | null
     accessToken?: StringWithAggregatesFilter<"SocialAccount"> | string
     refreshToken?: StringNullableWithAggregatesFilter<"SocialAccount"> | string | null
-    socialAccountId?: StringWithAggregatesFilter<"SocialAccount"> | string
     connectedAt?: DateTimeWithAggregatesFilter<"SocialAccount"> | Date | string
   }
 
@@ -11774,51 +11793,46 @@ export namespace Prisma {
 
   export type SocialNetworkCreateInput = {
     name: string
-    profileUrlFormat?: string | null
     socialAccounts?: SocialAccountCreateNestedManyWithoutSocialNetworkInput
   }
 
   export type SocialNetworkUncheckedCreateInput = {
     id?: number
     name: string
-    profileUrlFormat?: string | null
     socialAccounts?: SocialAccountUncheckedCreateNestedManyWithoutSocialNetworkInput
   }
 
   export type SocialNetworkUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    profileUrlFormat?: NullableStringFieldUpdateOperationsInput | string | null
     socialAccounts?: SocialAccountUpdateManyWithoutSocialNetworkNestedInput
   }
 
   export type SocialNetworkUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    profileUrlFormat?: NullableStringFieldUpdateOperationsInput | string | null
     socialAccounts?: SocialAccountUncheckedUpdateManyWithoutSocialNetworkNestedInput
   }
 
   export type SocialNetworkCreateManyInput = {
     id?: number
     name: string
-    profileUrlFormat?: string | null
   }
 
   export type SocialNetworkUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    profileUrlFormat?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SocialNetworkUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    profileUrlFormat?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SocialAccountCreateInput = {
+    profileId: string
+    profileUsername?: string | null
+    profileImageUrl?: string | null
     accessToken: string
     refreshToken?: string | null
-    socialAccountId: string
     connectedAt?: Date | string
     user: UserCreateNestedOneWithoutSocialAccountsInput
     socialNetwork: SocialNetworkCreateNestedOneWithoutSocialAccountsInput
@@ -11829,17 +11843,21 @@ export namespace Prisma {
     id?: number
     userId: number
     socialNetworkId: number
+    profileId: string
+    profileUsername?: string | null
+    profileImageUrl?: string | null
     accessToken: string
     refreshToken?: string | null
-    socialAccountId: string
     connectedAt?: Date | string
     generalAnalytics?: GeneralAnalyticsDataUncheckedCreateNestedManyWithoutSocialAccountInput
   }
 
   export type SocialAccountUpdateInput = {
+    profileId?: StringFieldUpdateOperationsInput | string
+    profileUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    socialAccountId?: StringFieldUpdateOperationsInput | string
     connectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSocialAccountsNestedInput
     socialNetwork?: SocialNetworkUpdateOneRequiredWithoutSocialAccountsNestedInput
@@ -11850,9 +11868,11 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     socialNetworkId?: IntFieldUpdateOperationsInput | number
+    profileId?: StringFieldUpdateOperationsInput | string
+    profileUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    socialAccountId?: StringFieldUpdateOperationsInput | string
     connectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     generalAnalytics?: GeneralAnalyticsDataUncheckedUpdateManyWithoutSocialAccountNestedInput
   }
@@ -11861,16 +11881,20 @@ export namespace Prisma {
     id?: number
     userId: number
     socialNetworkId: number
+    profileId: string
+    profileUsername?: string | null
+    profileImageUrl?: string | null
     accessToken: string
     refreshToken?: string | null
-    socialAccountId: string
     connectedAt?: Date | string
   }
 
   export type SocialAccountUpdateManyMutationInput = {
+    profileId?: StringFieldUpdateOperationsInput | string
+    profileUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    socialAccountId?: StringFieldUpdateOperationsInput | string
     connectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11878,9 +11902,11 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     socialNetworkId?: IntFieldUpdateOperationsInput | number
+    profileId?: StringFieldUpdateOperationsInput | string
+    profileUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    socialAccountId?: StringFieldUpdateOperationsInput | string
     connectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12448,6 +12474,29 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
+  export type SocialNetworkCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type SocialNetworkAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type SocialNetworkMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type SocialNetworkMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type SocialNetworkSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -12463,35 +12512,77 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type SocialNetworkScalarRelationFilter = {
+    is?: SocialNetworkWhereInput
+    isNot?: SocialNetworkWhereInput
+  }
+
+  export type GeneralAnalyticsDataListRelationFilter = {
+    every?: GeneralAnalyticsDataWhereInput
+    some?: GeneralAnalyticsDataWhereInput
+    none?: GeneralAnalyticsDataWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
-  export type SocialNetworkCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    profileUrlFormat?: SortOrder
+  export type GeneralAnalyticsDataOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
-  export type SocialNetworkAvgOrderByAggregateInput = {
-    id?: SortOrder
+  export type SocialAccountUserIdSocialNetworkIdCompoundUniqueInput = {
+    userId: number
+    socialNetworkId: number
   }
 
-  export type SocialNetworkMaxOrderByAggregateInput = {
+  export type SocialAccountCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    profileUrlFormat?: SortOrder
+    userId?: SortOrder
+    socialNetworkId?: SortOrder
+    profileId?: SortOrder
+    profileUsername?: SortOrder
+    profileImageUrl?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    connectedAt?: SortOrder
   }
 
-  export type SocialNetworkMinOrderByAggregateInput = {
+  export type SocialAccountAvgOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    profileUrlFormat?: SortOrder
+    userId?: SortOrder
+    socialNetworkId?: SortOrder
   }
 
-  export type SocialNetworkSumOrderByAggregateInput = {
+  export type SocialAccountMaxOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
+    socialNetworkId?: SortOrder
+    profileId?: SortOrder
+    profileUsername?: SortOrder
+    profileImageUrl?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    connectedAt?: SortOrder
+  }
+
+  export type SocialAccountMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    socialNetworkId?: SortOrder
+    profileId?: SortOrder
+    profileUsername?: SortOrder
+    profileImageUrl?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    connectedAt?: SortOrder
+  }
+
+  export type SocialAccountSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    socialNetworkId?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12510,68 +12601,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type SocialNetworkScalarRelationFilter = {
-    is?: SocialNetworkWhereInput
-    isNot?: SocialNetworkWhereInput
-  }
-
-  export type GeneralAnalyticsDataListRelationFilter = {
-    every?: GeneralAnalyticsDataWhereInput
-    some?: GeneralAnalyticsDataWhereInput
-    none?: GeneralAnalyticsDataWhereInput
-  }
-
-  export type GeneralAnalyticsDataOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type SocialAccountUserIdSocialNetworkIdCompoundUniqueInput = {
-    userId: number
-    socialNetworkId: number
-  }
-
-  export type SocialAccountCountOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    socialNetworkId?: SortOrder
-    accessToken?: SortOrder
-    refreshToken?: SortOrder
-    socialAccountId?: SortOrder
-    connectedAt?: SortOrder
-  }
-
-  export type SocialAccountAvgOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    socialNetworkId?: SortOrder
-  }
-
-  export type SocialAccountMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    socialNetworkId?: SortOrder
-    accessToken?: SortOrder
-    refreshToken?: SortOrder
-    socialAccountId?: SortOrder
-    connectedAt?: SortOrder
-  }
-
-  export type SocialAccountMinOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    socialNetworkId?: SortOrder
-    accessToken?: SortOrder
-    refreshToken?: SortOrder
-    socialAccountId?: SortOrder
-    connectedAt?: SortOrder
-  }
-
-  export type SocialAccountSumOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    socialNetworkId?: SortOrder
   }
 
   export type SocialAccountScalarRelationFilter = {
@@ -13025,10 +13054,6 @@ export namespace Prisma {
     connect?: SocialAccountWhereUniqueInput | SocialAccountWhereUniqueInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type SocialAccountUpdateManyWithoutSocialNetworkNestedInput = {
     create?: XOR<SocialAccountCreateWithoutSocialNetworkInput, SocialAccountUncheckedCreateWithoutSocialNetworkInput> | SocialAccountCreateWithoutSocialNetworkInput[] | SocialAccountUncheckedCreateWithoutSocialNetworkInput[]
     connectOrCreate?: SocialAccountCreateOrConnectWithoutSocialNetworkInput | SocialAccountCreateOrConnectWithoutSocialNetworkInput[]
@@ -13081,6 +13106,10 @@ export namespace Prisma {
     connectOrCreate?: GeneralAnalyticsDataCreateOrConnectWithoutSocialAccountInput | GeneralAnalyticsDataCreateOrConnectWithoutSocialAccountInput[]
     createMany?: GeneralAnalyticsDataCreateManySocialAccountInputEnvelope
     connect?: GeneralAnalyticsDataWhereUniqueInput | GeneralAnalyticsDataWhereUniqueInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type UserUpdateOneRequiredWithoutSocialAccountsNestedInput = {
@@ -13512,9 +13541,11 @@ export namespace Prisma {
   }
 
   export type SocialAccountCreateWithoutUserInput = {
+    profileId: string
+    profileUsername?: string | null
+    profileImageUrl?: string | null
     accessToken: string
     refreshToken?: string | null
-    socialAccountId: string
     connectedAt?: Date | string
     socialNetwork: SocialNetworkCreateNestedOneWithoutSocialAccountsInput
     generalAnalytics?: GeneralAnalyticsDataCreateNestedManyWithoutSocialAccountInput
@@ -13523,9 +13554,11 @@ export namespace Prisma {
   export type SocialAccountUncheckedCreateWithoutUserInput = {
     id?: number
     socialNetworkId: number
+    profileId: string
+    profileUsername?: string | null
+    profileImageUrl?: string | null
     accessToken: string
     refreshToken?: string | null
-    socialAccountId: string
     connectedAt?: Date | string
     generalAnalytics?: GeneralAnalyticsDataUncheckedCreateNestedManyWithoutSocialAccountInput
   }
@@ -13584,9 +13617,11 @@ export namespace Prisma {
     id?: IntFilter<"SocialAccount"> | number
     userId?: IntFilter<"SocialAccount"> | number
     socialNetworkId?: IntFilter<"SocialAccount"> | number
+    profileId?: StringFilter<"SocialAccount"> | string
+    profileUsername?: StringNullableFilter<"SocialAccount"> | string | null
+    profileImageUrl?: StringNullableFilter<"SocialAccount"> | string | null
     accessToken?: StringFilter<"SocialAccount"> | string
     refreshToken?: StringNullableFilter<"SocialAccount"> | string | null
-    socialAccountId?: StringFilter<"SocialAccount"> | string
     connectedAt?: DateTimeFilter<"SocialAccount"> | Date | string
   }
 
@@ -13641,9 +13676,11 @@ export namespace Prisma {
   }
 
   export type SocialAccountCreateWithoutSocialNetworkInput = {
+    profileId: string
+    profileUsername?: string | null
+    profileImageUrl?: string | null
     accessToken: string
     refreshToken?: string | null
-    socialAccountId: string
     connectedAt?: Date | string
     user: UserCreateNestedOneWithoutSocialAccountsInput
     generalAnalytics?: GeneralAnalyticsDataCreateNestedManyWithoutSocialAccountInput
@@ -13652,9 +13689,11 @@ export namespace Prisma {
   export type SocialAccountUncheckedCreateWithoutSocialNetworkInput = {
     id?: number
     userId: number
+    profileId: string
+    profileUsername?: string | null
+    profileImageUrl?: string | null
     accessToken: string
     refreshToken?: string | null
-    socialAccountId: string
     connectedAt?: Date | string
     generalAnalytics?: GeneralAnalyticsDataUncheckedCreateNestedManyWithoutSocialAccountInput
   }
@@ -13709,13 +13748,11 @@ export namespace Prisma {
 
   export type SocialNetworkCreateWithoutSocialAccountsInput = {
     name: string
-    profileUrlFormat?: string | null
   }
 
   export type SocialNetworkUncheckedCreateWithoutSocialAccountsInput = {
     id?: number
     name: string
-    profileUrlFormat?: string | null
   }
 
   export type SocialNetworkCreateOrConnectWithoutSocialAccountsInput = {
@@ -13793,13 +13830,11 @@ export namespace Prisma {
 
   export type SocialNetworkUpdateWithoutSocialAccountsInput = {
     name?: StringFieldUpdateOperationsInput | string
-    profileUrlFormat?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SocialNetworkUncheckedUpdateWithoutSocialAccountsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    profileUrlFormat?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GeneralAnalyticsDataUpsertWithWhereUniqueWithoutSocialAccountInput = {
@@ -13830,9 +13865,11 @@ export namespace Prisma {
   }
 
   export type SocialAccountCreateWithoutGeneralAnalyticsInput = {
+    profileId: string
+    profileUsername?: string | null
+    profileImageUrl?: string | null
     accessToken: string
     refreshToken?: string | null
-    socialAccountId: string
     connectedAt?: Date | string
     user: UserCreateNestedOneWithoutSocialAccountsInput
     socialNetwork: SocialNetworkCreateNestedOneWithoutSocialAccountsInput
@@ -13842,9 +13879,11 @@ export namespace Prisma {
     id?: number
     userId: number
     socialNetworkId: number
+    profileId: string
+    profileUsername?: string | null
+    profileImageUrl?: string | null
     accessToken: string
     refreshToken?: string | null
-    socialAccountId: string
     connectedAt?: Date | string
   }
 
@@ -13967,9 +14006,11 @@ export namespace Prisma {
   }
 
   export type SocialAccountUpdateWithoutGeneralAnalyticsInput = {
+    profileId?: StringFieldUpdateOperationsInput | string
+    profileUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    socialAccountId?: StringFieldUpdateOperationsInput | string
     connectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSocialAccountsNestedInput
     socialNetwork?: SocialNetworkUpdateOneRequiredWithoutSocialAccountsNestedInput
@@ -13979,9 +14020,11 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     socialNetworkId?: IntFieldUpdateOperationsInput | number
+    profileId?: StringFieldUpdateOperationsInput | string
+    profileUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    socialAccountId?: StringFieldUpdateOperationsInput | string
     connectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14270,16 +14313,20 @@ export namespace Prisma {
   export type SocialAccountCreateManyUserInput = {
     id?: number
     socialNetworkId: number
+    profileId: string
+    profileUsername?: string | null
+    profileImageUrl?: string | null
     accessToken: string
     refreshToken?: string | null
-    socialAccountId: string
     connectedAt?: Date | string
   }
 
   export type SocialAccountUpdateWithoutUserInput = {
+    profileId?: StringFieldUpdateOperationsInput | string
+    profileUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    socialAccountId?: StringFieldUpdateOperationsInput | string
     connectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     socialNetwork?: SocialNetworkUpdateOneRequiredWithoutSocialAccountsNestedInput
     generalAnalytics?: GeneralAnalyticsDataUpdateManyWithoutSocialAccountNestedInput
@@ -14288,9 +14335,11 @@ export namespace Prisma {
   export type SocialAccountUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     socialNetworkId?: IntFieldUpdateOperationsInput | number
+    profileId?: StringFieldUpdateOperationsInput | string
+    profileUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    socialAccountId?: StringFieldUpdateOperationsInput | string
     connectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     generalAnalytics?: GeneralAnalyticsDataUncheckedUpdateManyWithoutSocialAccountNestedInput
   }
@@ -14298,25 +14347,31 @@ export namespace Prisma {
   export type SocialAccountUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     socialNetworkId?: IntFieldUpdateOperationsInput | number
+    profileId?: StringFieldUpdateOperationsInput | string
+    profileUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    socialAccountId?: StringFieldUpdateOperationsInput | string
     connectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SocialAccountCreateManySocialNetworkInput = {
     id?: number
     userId: number
+    profileId: string
+    profileUsername?: string | null
+    profileImageUrl?: string | null
     accessToken: string
     refreshToken?: string | null
-    socialAccountId: string
     connectedAt?: Date | string
   }
 
   export type SocialAccountUpdateWithoutSocialNetworkInput = {
+    profileId?: StringFieldUpdateOperationsInput | string
+    profileUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    socialAccountId?: StringFieldUpdateOperationsInput | string
     connectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSocialAccountsNestedInput
     generalAnalytics?: GeneralAnalyticsDataUpdateManyWithoutSocialAccountNestedInput
@@ -14325,9 +14380,11 @@ export namespace Prisma {
   export type SocialAccountUncheckedUpdateWithoutSocialNetworkInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    profileId?: StringFieldUpdateOperationsInput | string
+    profileUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    socialAccountId?: StringFieldUpdateOperationsInput | string
     connectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     generalAnalytics?: GeneralAnalyticsDataUncheckedUpdateManyWithoutSocialAccountNestedInput
   }
@@ -14335,9 +14392,11 @@ export namespace Prisma {
   export type SocialAccountUncheckedUpdateManyWithoutSocialNetworkInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    profileId?: StringFieldUpdateOperationsInput | string
+    profileUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    socialAccountId?: StringFieldUpdateOperationsInput | string
     connectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
