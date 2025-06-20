@@ -11,6 +11,7 @@ import { ResetPasswordDto } from "./dto/reset-password.dto";
 import { MailService } from "@/shared/mail/mail.service";
 import { ConfigService } from "@nestjs/config";
 import { SuccessAuthDto } from "./dto/success-auth.dto";
+import { TokensDto } from "@/shared/auth/dto/tokens.dto";
 
 const SALT_ROUNDS = 10;
 
@@ -139,15 +140,19 @@ export class AuthService {
     );
   }
 
-  async verifyEmail(code: string): Promise<boolean> {
+  async verifyEmail(code: string): Promise<TokensDto> {
     const confirmationCode =
       await this.authRepository.getConfirmationCode(code);
     if (!confirmationCode) {
-      return false;
+      throw new BadRequestException("Invalid confirmation code");
     }
 
     await this.authRepository.verifyEmail(confirmationCode.userId);
-    return true;
+    return this.jwtService.generateTokens({
+      id: confirmationCode.userId,
+      email: confirmationCode.user.email,
+      isEmailVerified: true,
+    });
   }
 
   async refresh(id: number, email: string, isEmailVerified: boolean) {

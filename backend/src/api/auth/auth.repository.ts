@@ -42,9 +42,14 @@ export class AuthRepository {
     });
   }
 
-  async getConfirmationCode(code: string): Promise<ConfirmationCode | null> {
+  async getConfirmationCode(
+    code: string,
+  ): Promise<(ConfirmationCode & { user: User }) | null> {
     return this.prisma.confirmationCode.findUnique({
       where: { code },
+      include: {
+        user: true,
+      },
     });
   }
 

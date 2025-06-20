@@ -72,8 +72,31 @@ export class AuthController {
     type: String,
   })
   async verifyEmail(@Query("code") code: string, @Res() res: Response) {
-    const isVerified = await this.authService.verifyEmail(code);
-    if (!isVerified) {
+    try {
+      const tokens = await this.authService.verifyEmail(code);
+
+      res.cookie("accessToken", tokens.accessToken, {
+        httpOnly: false,
+        secure: this.configService.get("NODE_ENV") === "production",
+        maxAge: 24 * 60 * 60 * 1000,
+        sameSite: "lax",
+        path: "/",
+      });
+      res.cookie("refreshToken", tokens.refreshToken, {
+        httpOnly: true,
+        secure: this.configService.get("NODE_ENV") === "production",
+        maxAge: 24 * 60 * 60 * 1000,
+        sameSite: "lax",
+        path: "/",
+      });
+      res
+        .status(302)
+        .redirect(
+          this.configService.getOrThrow(
+            "FRONTEND_EMAIL_VERIFICATION_SUCCESS_URL",
+          ),
+        );
+    } catch {
       return res
         .status(400)
         .redirect(
@@ -82,13 +105,6 @@ export class AuthController {
           ) + `?error=INVALID_CONFIRMATION_CODE`,
         );
     }
-    res
-      .status(302)
-      .redirect(
-        this.configService.getOrThrow(
-          "FRONTEND_EMAIL_VERIFICATION_SUCCESS_URL",
-        ),
-      );
   }
 
   @Post("refresh")
