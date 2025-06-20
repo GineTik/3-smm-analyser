@@ -109,7 +109,7 @@ export class AuthController {
     const isProduction = this.configService.get("NODE_ENV") === "production";
 
     res.status(200).cookie(ACCESS_TOKEN_COOKIE_NAME, tokens.accessToken, {
-      httpOnly: true,
+      httpOnly: false,
       secure: isProduction,
       maxAge: 24 * 60 * 60 * 1000,
       sameSite: isProduction ? "none" : "lax",
