@@ -2,25 +2,12 @@ import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { setupSwagger } from "./shared/swagger/swagger.setup";
 import { ValidationPipe } from "@nestjs/common";
-import * as session from "express-session";
 import * as cookieParser from "cookie-parser";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(cookieParser());
-  app.use(
-    session({
-      secret: process.env.SESSION_SECRET || "your-secret-key",
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        secure: process.env.NODE_ENV === "production",
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
-      },
-    }),
-  );
 
   app.enableCors({
     origin: (
