@@ -1,11 +1,5 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { jwtVerify } from "jose";
-
-interface UserJwtPayload {
-  isEmailVerified: boolean;
-  [key: string]: unknown;
-}
 
 const loginRedirectUrl = "/auth";
 
@@ -14,6 +8,8 @@ export async function middleware(request: NextRequest) {
   const sessionToken = request.cookies.get(
     process.env.COOKIE_TOKEN_KEY as string,
   )?.value;
+
+  console.log("sessionToken", sessionToken);
 
   if (!sessionToken) {
     return NextResponse.redirect(new URL(loginRedirectUrl, request.url));
