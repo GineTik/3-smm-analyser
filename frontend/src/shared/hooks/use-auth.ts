@@ -7,6 +7,8 @@ import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "../constants/cookies";
 import { jwtDecode } from "jwt-decode";
 import { User } from "../types/user";
 import { createGStore } from "create-gstore";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "../constants/routes";
 
 type Tokens = Omit<
   components["schemas"]["TokensDto"],
@@ -14,6 +16,7 @@ type Tokens = Omit<
 >;
 
 export const useAuth = createGStore(() => {
+  const router = useRouter();
   const [tokens, setTokens] = useState<Tokens | null>({
     accessToken: Cookies.get(ACCESS_TOKEN_KEY) ?? "",
     refreshToken: Cookies.get(REFRESH_TOKEN_KEY) ?? "",
@@ -23,6 +26,7 @@ export const useAuth = createGStore(() => {
     Cookies.remove(ACCESS_TOKEN_KEY);
     Cookies.remove(REFRESH_TOKEN_KEY);
     setTokens(null);
+    router.push(ROUTES.AUTH);
   }, []);
 
   const save = useCallback((tokens: Tokens) => {
