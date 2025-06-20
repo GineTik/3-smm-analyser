@@ -9,16 +9,15 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(cookieParser());
-  // Configure session middleware for OAuth
   app.use(
     session({
-      secret: process.env.SESSION_SECRET || "your-secret-key", // Use a strong secret in production
+      secret: process.env.SESSION_SECRET || "your-secret-key",
       resave: false,
       saveUninitialized: false,
       cookie: {
-        secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+        secure: process.env.NODE_ENV === "production",
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        maxAge: 24 * 60 * 60 * 1000,
       },
     }),
   );
@@ -28,7 +27,6 @@ async function bootstrap() {
       origin: string | undefined,
       callback: (err: Error | null, allow?: boolean) => void,
     ) => {
-      // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
 
       const allowedOrigins = [
