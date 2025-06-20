@@ -42,9 +42,8 @@ async function bootstrap() {
       }
     },
     credentials: true,
-    headers: true,
-    methods: true,
-    allowedHeaders: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   });
 
   setupSwagger(app);
