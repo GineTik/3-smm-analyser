@@ -48,7 +48,11 @@ export function useRegister() {
 
               if (!data.user.isEmailVerified) {
                 router.push(ROUTES.VERIFY_EMAIL);
+                return;
               }
+
+              toast.success("Реєстрація пройшла успішно");
+              router.push(ROUTES.HOME);
             },
             onError: (error) => {
               toast.error(error["message"]);

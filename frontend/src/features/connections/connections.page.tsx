@@ -1,11 +1,6 @@
-"use client";
-
 import { ConnectionsList } from "./connections-list";
-import { useConnectionFailed } from "./use-connection-failed";
 
 export function ConnectionsPage() {
-  useConnectionFailed();
-
   return (
     <div className="flex flex-col gap-2 max-w-[800px] w-full mx-auto mt-10">
       <h1>З&apos;єднання</h1>

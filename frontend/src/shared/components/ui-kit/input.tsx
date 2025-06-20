@@ -33,6 +33,7 @@ export function FormInput<T extends FieldValues>({
   name,
   type,
   label,
+  placeholder,
 }: React.ComponentProps<"input"> & {
   control: Control<T>;
   name: Path<T>;
@@ -46,7 +47,12 @@ export function FormInput<T extends FieldValues>({
         <FormItem>
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
-            <Input type={type} data-slot="input" {...field} />
+            <Input
+              type={type}
+              data-slot="input"
+              {...field}
+              placeholder={placeholder}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

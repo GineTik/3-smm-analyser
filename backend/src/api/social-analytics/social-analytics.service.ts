@@ -1,46 +1,37 @@
-import { Injectable } from "@nestjs/common";
+import { SOCIAL_NETWORKS } from "@/shared/prisma/prisma.types";
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { SocialAnalyticsStrategy } from "./strategies/social-analytics.strategy";
+import { TwitterAnalyticsStrategy } from "./strategies/twitter-analytics.strategy";
+import { ERROR_MESSAGES } from "./social-analytics.constants";
+import { SocialAnalyticsRepository } from "./social-analytics.repository";
 
 @Injectable()
 export class SocialAnalyticsService {
-  /*  private strategies: Map<string, SocialStrategy> = new Map();
+  private strategies: Map<SOCIAL_NETWORKS, SocialAnalyticsStrategy> = new Map();
 
   constructor(
-    private readonly facebookStrategy: FacebookStrategy,
-    private readonly instagramStrategy: InstagramStrategy,
-    private readonly twitterStrategy: TwitterStrategy,
+    private readonly twitterStrategy: TwitterAnalyticsStrategy,
+    private readonly socialAnalyticsRepository: SocialAnalyticsRepository,
   ) {
-    this.strategies.set(SOCIAL_NETWORKS.FACEBOOK, this.facebookStrategy);
-    this.strategies.set(SOCIAL_NETWORKS.INSTAGRAM, this.instagramStrategy);
     this.strategies.set(SOCIAL_NETWORKS.TWITTER, this.twitterStrategy);
   }
- */
-  /*  async getAnalyticsData(source: string, id: number) {
-    const strategy = this.strategies.get(source);
+
+  async getAnalyticsData(accountUsername: string) {
+    const account =
+      await this.socialAnalyticsRepository.getAccountByUsername(
+        accountUsername,
+      );
+
+    if (!account) {
+      throw new NotFoundException(ERROR_MESSAGES.ACCOUNT_NOT_FOUND);
+    }
+
+    const strategy = this.strategies.get(account.socialNetworkId);
+
     if (!strategy) {
-      throw new NotFoundException(`Strategy for source "${source}" not found.`);
+      throw new NotFoundException(ERROR_MESSAGES.STRATEGY_NOT_FOUND);
     }
 
-    await strategy.actualizeData(id);
-    const data = await strategy.analyzeAndGetData(id);
-    const analysis = this.analyzeData(data);
-
-    return { data, analysis };
+    return await strategy.getAnalyticsData(account);
   }
-
-  private analyzeData(data: AnalyticsData) {
-    // TODO: Implement a more sophisticated analysis
-    let summary = `Analysis for ${data.source}: `;
-
-    switch (data.source) {
-      case "facebook":
-      case "instagram":
-        summary += `Likes: ${(data.data as FacebookData | InstagramData).likes}, Comments: ${(data.data as FacebookData | InstagramData).comments}.`;
-        break;
-      case "twitter":
-        summary += `Retweets: ${(data.data as TwitterData).retweets}, Favorites: ${(data.data as TwitterData).favorites}.`;
-        break;
-    }
-
-    return summary;
-  } */
 }

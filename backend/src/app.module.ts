@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { AuthModule } from "@/api/auth/auth.module";
 import { JwtModule as NestJwtModule } from "@nestjs/jwt";
 import { ConnectionsModule } from "./api/connections/connections.module";
+import { SocialAnalyticsModule } from "./api/social-analytics/social-analytics.module";
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ConnectionsModule } from "./api/connections/connections.module";
     }),
     AuthModule,
     ConnectionsModule,
+    SocialAnalyticsModule,
   ],
   controllers: [],
   providers: [],

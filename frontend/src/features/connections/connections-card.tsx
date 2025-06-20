@@ -6,11 +6,13 @@ import { ArrowRightIcon, ChevronDownIcon, SendIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { useConnectTwitter } from "./use-connect-twitter";
 import { ApiSchemas } from "@/shared/api/schema";
+import Link from "next/link";
 
 type SocialNetwork = {
   title: string;
   icon: React.ReactNode;
   isConnected: boolean;
+  profileUrlFormat?: string;
 };
 
 type ConnectionsCardProps = {
@@ -67,10 +69,20 @@ export function ConnectionsCard({
                   <XIcon className="w-4 h-4" />
                   Відключити
                 </Button>
-                <Button variant="outline" size="sm">
-                  Профіль
-                  <ArrowRightIcon className="w-4 h-4" />
-                </Button>
+                {socialNetwork.profileUrlFormat && (
+                  <Button variant="outline" size="sm" asChild>
+                    <Link
+                      href={`${socialNetwork.profileUrlFormat.replace(
+                        "{username}",
+                        account.username,
+                      )}`}
+                      target="_blank"
+                    >
+                      Профіль
+                      <ArrowRightIcon className="w-4 h-4" />
+                    </Link>
+                  </Button>
+                )}
               </div>
             </div>
           ))}

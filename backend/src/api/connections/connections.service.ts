@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { CreateConnectionDto } from "./dto/create-connection.dto";
 import { PrismaService } from "@/shared/prisma/prisma.service";
 import { TwitterOauth2ResponseDto } from "./dto/twitter-oauth2-response.dto";
@@ -10,25 +10,26 @@ export class ConnectionsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createConnectionDto: CreateConnectionDto, userId: number) {
-    const socialAccount = await this.prisma.socialAccount.findFirst({
+    return await this.prisma.socialAccount.upsert({
       where: {
+        profileId: createConnectionDto.profileId,
+        userId_socialNetworkId: {
+          userId,
+          socialNetworkId: createConnectionDto.socialNetworkId,
+        },
+      },
+      create: {
         userId,
         socialNetworkId: createConnectionDto.socialNetworkId,
         profileId: createConnectionDto.profileId,
-      },
-    });
-
-    if (socialAccount) {
-      throw new BadRequestException("Social account already exists");
-    }
-
-    return await this.prisma.socialAccount.create({
-      data: {
-        userId,
-        socialNetworkId: createConnectionDto.socialNetworkId,
         accessToken: createConnectionDto.accessToken,
         refreshToken: createConnectionDto.refreshToken,
-        profileId: createConnectionDto.profileId,
+        profileUsername: createConnectionDto.username,
+        profileImageUrl: createConnectionDto.imageUrl,
+      },
+      update: {
+        accessToken: createConnectionDto.accessToken,
+        refreshToken: createConnectionDto.refreshToken,
         profileUsername: createConnectionDto.username,
         profileImageUrl: createConnectionDto.imageUrl,
       },

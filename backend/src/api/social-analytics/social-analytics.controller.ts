@@ -1,5 +1,8 @@
-import { Controller } from "@nestjs/common";
+import { Controller, Get, Param } from "@nestjs/common";
 import { SocialAnalyticsService } from "./social-analytics.service";
+import { Auth } from "@/shared/auth/auth.decorator";
+import { ApiResponse } from "@nestjs/swagger";
+import { TwitterDataDto } from "./dto/twitter-data.dto";
 
 @Controller("social-analytics")
 export class SocialAnalyticsController {
@@ -7,8 +10,13 @@ export class SocialAnalyticsController {
     private readonly socialAnalyticsService: SocialAnalyticsService,
   ) {}
 
-  /* @Get(":source/:id")
-  getAnalyticsData(@Param("source") source: string, @Param("id") id: string) {
-    return this.socialAnalyticsService.getAnalyticsData(source, +id);
-   }*/
+  @Auth()
+  @Get(":accountUsername")
+  @ApiResponse({
+    status: 200,
+    type: [TwitterDataDto],
+  })
+  getAnalyticsData(@Param("accountUsername") accountUsername: string) {
+    return this.socialAnalyticsService.getAnalyticsData(accountUsername);
+  }
 }

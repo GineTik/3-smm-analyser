@@ -1,3 +1,5 @@
+"use client";
+
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react";
 import { ConnectionsCard } from "./connections-card";
 import { useConnections } from "./use-connections";
@@ -31,6 +33,7 @@ export function ConnectionsList() {
           title: "X (Twitter)",
           icon: <TwitterIcon />,
           isConnected: false,
+          profileUrlFormat: "https://x.com/{username}",
         }}
         accounts={connections.data?.filter(
           (account) => account.socialNetworkId === SocialNetwork.TWITTER,

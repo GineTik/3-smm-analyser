@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "@/shared/hooks/use-auth";
 import { ROUTES } from "@/shared/constants/routes";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function useLogin() {
   const form = useForm({
@@ -38,7 +39,11 @@ export function useLogin() {
 
             if (!data.user.isEmailVerified) {
               router.push(ROUTES.VERIFY_EMAIL);
+              return;
             }
+
+            toast.success("Вхід пройшов успішно");
+            router.push(ROUTES.HOME);
           },
         },
       );

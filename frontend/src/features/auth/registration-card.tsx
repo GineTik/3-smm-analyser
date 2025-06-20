@@ -22,12 +22,23 @@ export function RegistrationCard() {
       <Form {...form}>
         <form onSubmit={register}>
           <CardContent className="space-y-4">
-            <FormInput control={form.control} name="email" label="Пошта" />
-            <FormInput control={form.control} name="password" label="Пароль" />
+            <FormInput
+              control={form.control}
+              name="email"
+              label="Пошта"
+              placeholder="example@gmail.com"
+            />
+            <FormInput
+              control={form.control}
+              name="password"
+              label="Пароль"
+              placeholder="********"
+            />
             <FormInput
               control={form.control}
               name="confirmPassword"
               label="Повторіть пароль"
+              placeholder="********"
             />
           </CardContent>
           <CardFooter className="mt-4">

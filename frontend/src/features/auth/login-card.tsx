@@ -22,8 +22,18 @@ export function LoginCard() {
       <Form {...form}>
         <form onSubmit={login}>
           <CardContent className="space-y-4">
-            <FormInput control={form.control} name="email" label="Пошта" />
-            <FormInput control={form.control} name="password" label="Пароль" />
+            <FormInput
+              control={form.control}
+              name="email"
+              label="Пошта"
+              placeholder="example@gmail.com"
+            />
+            <FormInput
+              control={form.control}
+              name="password"
+              label="Пароль"
+              placeholder="********"
+            />
             {error?.["statusCode"] === 401 && (
               <p className="text-sm text-destructive">
                 Некоректна пошта або пароль
