@@ -7,6 +7,7 @@ export const useConnectTwitter = () => {
 
   return {
     connectTwitter: async () => {
+      console.log(process.env.COOKIE_BACKEND_DOMAIN);
       const userId = useAuth.getState().user?.id;
       if (userId) {
         Cookies.set("twitterConnectUserId", userId.toString(), {
