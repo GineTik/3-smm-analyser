@@ -34,6 +34,7 @@ export class TwitterConnectStrategy extends PassportStrategy(
     refreshToken: string,
     profile: Profile,
   ): TwitterOauth2ResponseDto {
+    console.log("req.cookies: ", req.cookies);
     const userAccessToken = req.cookies[ACCESS_TOKEN_COOKIE_NAME] as string;
     const payload = this.jwtService.decode<PayloadDto>(userAccessToken);
 
