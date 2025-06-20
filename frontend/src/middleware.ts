@@ -19,19 +19,19 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(loginRedirectUrl, request.url));
   }
 
-  try {
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-    const { payload } = await jwtVerify<UserJwtPayload>(sessionToken, secret);
+  // try {
+  //   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+  //   const { payload } = await jwtVerify<UserJwtPayload>(sessionToken, secret);
 
-    if (!payload.isEmailVerified) {
-      const loginUrl = new URL(loginRedirectUrl, request.url);
-      loginUrl.searchParams.set("error", "email_not_confirmed");
-      return NextResponse.redirect(loginUrl);
-    }
-  } catch (error) {
-    console.error("JWT verification error:", error);
-    return NextResponse.redirect(new URL(loginRedirectUrl, request.url));
-  }
+  //   if (!payload.isEmailVerified) {
+  //     const loginUrl = new URL(loginRedirectUrl, request.url);
+  //     loginUrl.searchParams.set("error", "email_not_confirmed");
+  //     return NextResponse.redirect(loginUrl);
+  //   }
+  // } catch (error) {
+  //   console.error("JWT verification error:", error);
+  //   return NextResponse.redirect(new URL(loginRedirectUrl, request.url));
+  // }
 
   return NextResponse.next();
 }
