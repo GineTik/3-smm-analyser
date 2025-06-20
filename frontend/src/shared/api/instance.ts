@@ -33,6 +33,7 @@ securedFetchClient.use({
 
 export const publicFetchClient = createFetchClient<paths>({
   baseUrl: process.env.NEXT_PUBLIC_API_URL,
+  credentials: "include",
   headers: {
     "Content-Type": "application/json",
   },

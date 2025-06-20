@@ -24,7 +24,7 @@ export class TwitterAnalyticsStrategy implements SocialAnalyticsStrategy {
     let needsRefetch = false;
 
     if (analyticsData.length === 0) {
-      const tweetsToCreate = Math.floor(Math.random() * 4) + 3; // 3-6
+      const tweetsToCreate = Math.floor(Math.random() * 4) + 10;
       const createPromises = [];
       for (let i = 0; i < tweetsToCreate; i++) {
         createPromises.push(this.saveMockDataToTheDb(account));
@@ -90,6 +90,16 @@ export class TwitterAnalyticsStrategy implements SocialAnalyticsStrategy {
       return shuffled.slice(0, Math.floor(Math.random() * 4) + 1);
     };
 
+    const randomDate = () => {
+      const start = new Date();
+      start.setHours(0, 0, 0, 0);
+      const end = new Date();
+      end.setHours(23, 59, 59, 999);
+      return new Date(
+        start.getTime() + Math.random() * (end.getTime() - start.getTime()),
+      );
+    };
+
     const data = {
       tweetId: randomId,
       tweetContent: randomContent,
@@ -99,13 +109,14 @@ export class TwitterAnalyticsStrategy implements SocialAnalyticsStrategy {
       commentCount: this.randomCount(200),
       viewCount: this.randomCount(10000),
       hashtags: generateHashtags(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: randomDate(),
+      updatedAt: randomDate(),
     };
 
     await this.prisma.generalAnalyticsData.create({
       data: {
         dataType: "twits",
+        metricCollectedAt: randomDate(),
         socialAccount: {
           connect: {
             id: account.id,

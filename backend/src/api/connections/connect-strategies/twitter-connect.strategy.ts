@@ -4,20 +4,20 @@ import { TwitterOauth2ResponseDto } from "../dto/twitter-oauth2-response.dto";
 import { ConfigService } from "@nestjs/config";
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { AUTH_STRATEGIES } from "../connections.constants";
+import { JwtService } from "@nestjs/jwt";
+import { PayloadDto } from "../../../shared/auth/dto/payload.dto";
+import { ACCESS_TOKEN_COOKIE_NAME } from "@/api/auth/auth.constants";
 import { Request } from "express";
-
-declare module "express-session" {
-  interface SessionData {
-    twitterConnectUserId?: string;
-  }
-}
 
 @Injectable()
 export class TwitterConnectStrategy extends PassportStrategy(
   Strategy,
   AUTH_STRATEGIES.TWITTER_CONNECT,
 ) {
-  constructor(configService: ConfigService) {
+  constructor(
+    configService: ConfigService,
+    private readonly jwtService: JwtService,
+  ) {
     super({
       clientType: "confidential",
       clientID: configService.getOrThrow<string>("TWITTER_CLIENT_ID"),
@@ -34,12 +34,16 @@ export class TwitterConnectStrategy extends PassportStrategy(
     refreshToken: string,
     profile: Profile,
   ): TwitterOauth2ResponseDto {
-    const userId = req.cookies["twitterConnectUserId"] as string;
+    const userAccessToken = req.cookies[ACCESS_TOKEN_COOKIE_NAME] as string;
+    const payload = this.jwtService.decode<PayloadDto>(userAccessToken);
 
-    if (!userId) {
-      throw new UnauthorizedException("User not found");
+    console.log("userToken: ", userAccessToken, payload);
+    if (!payload) {
+      throw new UnauthorizedException("Invalid token");
     }
+    const userId = payload.id;
 
+    console.log(userId, payload);
     return {
       accessToken,
       refreshToken,
@@ -47,7 +51,7 @@ export class TwitterConnectStrategy extends PassportStrategy(
       username: profile.username,
       imageUrl: profile.photos?.[0]?.value,
       profile,
-      userId: +userId,
+      userId,
     };
   }
 }
