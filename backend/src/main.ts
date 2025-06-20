@@ -3,11 +3,29 @@ import { AppModule } from "./app.module";
 import { setupSwagger } from "./shared/swagger/swagger.setup";
 import { ValidationPipe } from "@nestjs/common";
 import * as cookieParser from "cookie-parser";
+import * as session from "express-session";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(cookieParser());
+
+  const isProduction = process.env.NODE_ENV === "production";
+
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET || "a-very-strong-secret-for-dev",
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        secure: isProduction,
+        httpOnly: true,
+        maxAge: 60 * 60 * 1000, // 1 hour
+        sameSite: isProduction ? "none" : "lax",
+        domain: process.env.BACKEND_DOMAIN,
+      },
+    }),
+  );
 
   app.enableCors({
     origin: (

@@ -114,7 +114,7 @@ export class AuthController {
       maxAge: 24 * 60 * 60 * 1000,
       sameSite: isProduction ? "none" : "lax",
       path: "/",
-      domain: this.configService.get("COOKIE_DOMAIN"),
+      domain: this.configService.get("BACKEND_DOMAIN"),
     });
     res.status(200).cookie(REFRESH_TOKEN_COOKIE_NAME, tokens.refreshToken, {
       httpOnly: true,
@@ -122,7 +122,7 @@ export class AuthController {
       maxAge: 24 * 60 * 60 * 1000,
       sameSite: isProduction ? "none" : "lax",
       path: "/",
-      domain: this.configService.get("COOKIE_DOMAIN"),
+      domain: this.configService.get("BACKEND_DOMAIN"),
     });
   }
 }
