@@ -106,19 +106,23 @@ export class AuthController {
   }
 
   setTokensToCookies(res: Response, tokens: TokensDto) {
+    const isProduction = this.configService.get("NODE_ENV") === "production";
+
     res.status(200).cookie(ACCESS_TOKEN_COOKIE_NAME, tokens.accessToken, {
       httpOnly: true,
-      secure: this.configService.get("NODE_ENV") === "production",
+      secure: isProduction,
       maxAge: 24 * 60 * 60 * 1000,
-      sameSite: "none",
+      sameSite: isProduction ? "none" : "lax",
       path: "/",
+      domain: this.configService.get("COOKIE_DOMAIN"),
     });
     res.status(200).cookie(REFRESH_TOKEN_COOKIE_NAME, tokens.refreshToken, {
       httpOnly: true,
-      secure: this.configService.get("NODE_ENV") === "production",
+      secure: isProduction,
       maxAge: 24 * 60 * 60 * 1000,
-      sameSite: "none",
+      sameSite: isProduction ? "none" : "lax",
       path: "/",
+      domain: this.configService.get("COOKIE_DOMAIN"),
     });
   }
 }
