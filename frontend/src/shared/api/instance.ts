@@ -17,7 +17,6 @@ export const securedRqClient = createClient(securedFetchClient);
 securedFetchClient.use({
   onRequest: (options) => {
     const token = useAuth.getState().accessToken;
-    console.log(token);
     if (token) {
       options.request.headers.set("Authorization", `Bearer ${token}`);
     } else {

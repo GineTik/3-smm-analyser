@@ -25,8 +25,8 @@ export function AnalyticsTabs() {
 
   if (connections.data?.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-full">
-        <p className="text-sm text-muted-foreground font-semibold">
+      <div className="flex flex-col items-center justify-center h-full gap-4 max-w-md mx-auto mt-10">
+        <p className="text-sm text-muted-foreground font-semibold text-center">
           Щоб побачити свої аналітичні дані, необхідно підключити акаунт на
           сторінці з&apos;єднань.
         </p>

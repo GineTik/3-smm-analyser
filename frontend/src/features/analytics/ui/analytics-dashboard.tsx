@@ -1,6 +1,5 @@
 "use client";
 
-import { AnalyticsAiRecommendations } from "./analytics-ai-recommendations";
 import { ChartConfig } from "@/shared/components/ui-kit/chart";
 import { AnalyticsBarChart } from "./charts/analytics-bar-chart";
 import { AnalyticsRadarChart } from "./charts/analytics-radar-chart";
@@ -10,15 +9,6 @@ type AnalyticsDashboardProps = {
   account: string;
 };
 
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214, mobile: 350 },
-];
-
 const chartConfig = {
   desktop: {
     label: "Desktop",
@@ -26,7 +16,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-function useAnalytics(account: string) {
+function useAnalytics() {
   return {
     data: {
       posts: [
@@ -58,7 +48,7 @@ function useAnalytics(account: string) {
 }
 
 export function AnalyticsDashboard({ account }: AnalyticsDashboardProps) {
-  const analytics = useAnalytics(account);
+  const analytics = useAnalytics();
 
   if (analytics.isLoading) {
     return <Loader className="w-10 h-10 animate-spin" />;

@@ -72,7 +72,16 @@ export class AuthController {
     type: String,
   })
   async verifyEmail(@Query("code") code: string, @Res() res: Response) {
-    await this.authService.verifyEmail(code);
+    const isVerified = await this.authService.verifyEmail(code);
+    if (!isVerified) {
+      return res
+        .status(400)
+        .redirect(
+          this.configService.getOrThrow(
+            "FRONTEND_EMAIL_VERIFICATION_ERROR_URL",
+          ) + `?error=INVALID_CONFIRMATION_CODE`,
+        );
+    }
     res
       .status(302)
       .redirect(

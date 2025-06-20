@@ -6,5 +6,6 @@
     "statusBar.background": "#262626",
     "statusBar.foreground": "#e9dbb7"
   },
-  "cSpell.words": ["dtos", "Sonner", "superfaceai"]
+  "cSpell.words": ["dtos", "Sonner", "superfaceai"],
+  "prismaERDPreviewer.preferredTheme": "light"
 }

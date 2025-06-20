@@ -139,14 +139,15 @@ export class AuthService {
     );
   }
 
-  async verifyEmail(code: string) {
+  async verifyEmail(code: string): Promise<boolean> {
     const confirmationCode =
       await this.authRepository.getConfirmationCode(code);
     if (!confirmationCode) {
-      throw new BadRequestException("Invalid confirmation code");
+      return false;
     }
 
     await this.authRepository.verifyEmail(confirmationCode.userId);
+    return true;
   }
 
   async refresh(id: number, email: string, isEmailVerified: boolean) {

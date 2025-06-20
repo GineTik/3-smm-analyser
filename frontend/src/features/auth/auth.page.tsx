@@ -1,6 +1,7 @@
 import { ForgetPasswordCard } from "./forget-password-card";
 import { LoginCard } from "./login-card";
 import { RegistrationCard } from "./registration-card";
+import { VerificationError } from "./verification-error";
 
 export function AuthPage() {
   return (
@@ -9,8 +10,9 @@ export function AuthPage() {
         <LoginCard />
         <ForgetPasswordCard />
       </div>
-      <div className="w-1/2">
+      <div className="flex flex-col gap-4 w-1/2">
         <RegistrationCard />
+        <VerificationError />
       </div>
     </div>
   );
