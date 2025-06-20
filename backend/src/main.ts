@@ -42,9 +42,9 @@ async function bootstrap() {
       }
     },
     credentials: true,
-    headers: ["*"],
-    methods: ["*"],
-    allowedHeaders: ["*"],
+    headers: true,
+    methods: true,
+    allowedHeaders: true,
   });
 
   setupSwagger(app);
